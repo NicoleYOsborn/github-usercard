@@ -3,6 +3,11 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios
+  .get('https://api.github.com/users/NicoleYOsborn')
+  .then(response => {
+    console.log(response.data)
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,7 +54,58 @@ const followersArray = [];
       </div>
     </div>
 */
+function makeCard(dataObj) {
+  const {
+    avatar_url,
+    name,
+    login,
+    location,
+    url,
+    followers,
+    following,
+    bio
+  } = dataObj;
 
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const realName = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(realName);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  realName.classList.add('name');
+  username.classList.add('username');
+
+cardInfo.src = avatar_url;
+realName.textContent = name;
+username.textContent= login;
+location.textcontent = location;
+profileLink.src = url;
+followers.textContent = followers;
+following.textContet = following;
+bio.textContent = bio;
+
+return card;
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
