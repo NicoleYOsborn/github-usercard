@@ -3,11 +3,17 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+var mydata
+
 axios
   .get('https://api.github.com/users/NicoleYOsborn')
   .then(response => {
-    console.log(response.data)
+    mydata = response.data;
+    cards.appendChild(makeCard(mydata));
   })
+
+  // myUserdata = {mydata.avatar_url, mydata.name, mydata.login, mydata.location, mydata.url, mydata.folllowers, mydata.following, mydata.bio}
+  
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -54,6 +60,8 @@ const followersArray = [];
       </div>
     </div>
 */
+const cards = document.querySelector('.cards');
+
 function makeCard(dataObj) {
   const {
     avatar_url,
@@ -71,41 +79,43 @@ function makeCard(dataObj) {
   const cardInfo = document.createElement('div');
   const realName = document.createElement('h3');
   const username = document.createElement('p');
-  const location = document.createElement('p');
-  const profile = document.createElement('p');
-  const profileLink = document.createElement('a');
-  const followers = document.createElement('p');
-  const following = document.createElement('p');
-  const bio = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const userProfile = document.createElement('p');
+  const userProfileLink = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
 
   card.appendChild(userImg);
   card.appendChild(cardInfo);
   cardInfo.appendChild(realName);
   cardInfo.appendChild(username);
-  cardInfo.appendChild(location);
-  cardInfo.appendChild(profile);
-  profile.appendChild(profileLink);
-  cardInfo.appendChild(followers);
-  cardInfo.appendChild(following);
-  cardInfo.appendChild(bio);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(userProfile);
+  userProfile.appendChild(userProfileLink);
+  cardInfo.appendChild(userFollowers);
+  cardInfo.appendChild(userFollowing);
+  cardInfo.appendChild(userBio);
 
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   realName.classList.add('name');
   username.classList.add('username');
 
-cardInfo.src = avatar_url;
+userImg.src = avatar_url;
 realName.textContent = name;
 username.textContent= login;
-location.textcontent = location;
-profileLink.src = url;
-followers.textContent = followers;
-following.textContet = following;
-bio.textContent = bio;
+userLocation.textcontent = location;
+userProfileLink.src = url;
+userFollowers.textContent = followers;
+userFollowing.textContet = following;
+userBio.textContent = bio;
 
 return card;
 
 }
+
+
 /*
   List of LS Instructors Github username's:
     tetondan
