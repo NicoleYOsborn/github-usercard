@@ -123,5 +123,15 @@ body {
   margin: 3px 0 10px;
 }
 
+button {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  margin-top: 20px;
+}
+
+button:hover {background-color: #e7e7e7;
+}
+
 
 

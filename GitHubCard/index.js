@@ -3,7 +3,11 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+GitHubCalendar(".calendar", "NicoleYOsborn");
 var mydata
+
+
 
 axios
   .get('https://api.github.com/users/NicoleYOsborn')
@@ -39,16 +43,18 @@ axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell'];
+const followersArray = ['tetondan', 'dustinmyers'];
+  
+  // dustinmyers',
+  // 'justsml',
+  // 'luishrd',
+  // 'bigknell'
 
   followersArray.forEach(item =>{
     axios
     .get (`https://api.github.com/users/${item}`)
     .then(response =>{
+
       let followerInfo = response.data;
       cards.appendChild(makeCard(followerInfo))
     })
@@ -98,6 +104,7 @@ function makeCard(dataObj) {
   const userFollowers = document.createElement('p');
   const userFollowing = document.createElement('p');
   const userBio = document.createElement('p');
+  const expandButton = document.createElement('button');
 
   card.appendChild(userImg);
   card.appendChild(cardInfo);
@@ -109,6 +116,7 @@ function makeCard(dataObj) {
   cardInfo.appendChild(userFollowers);
   cardInfo.appendChild(userFollowing);
   cardInfo.appendChild(userBio);
+  cardInfo.appendChild(expandButton);
 
   card.classList.add('card');
   cardInfo.classList.add('card-info');
@@ -123,6 +131,23 @@ userProfileLink.src = url;
 userFollowers.textContent = followers;
 userFollowing.textContet = following;
 userBio.textContent = bio;
+expandButton.innerHTML = 'See Followers'; 
+
+expandButton.addEventListener('click', (event)=>{
+  const user = username.textContent;
+  axios.get(`https://api.github.com/users/${user}/followers`)
+  .then(response =>{
+    let followersList = response.data;
+    let followUsername;
+    console.log(followersList)
+    followersList.forEach(follower=> {
+      followUsername = document.createElement('p');
+      followUsername.textContent = follower.login;
+      console.log(followUsername);
+      cardInfo.appendChild(followUsername);
+    })
+  })
+})
 
 return card;
 
